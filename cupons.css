@@ -1,0 +1,764 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500&display=swap');
+
+
+:root {
+
+    --areia: #e9dfd0;
+    --papel: #f7f1e8;
+
+    --tinta: #342a25;
+    --tinta-suave: #6e6259;
+
+    --marrom-claro: #9a806d;
+
+    --terracota: #9c6252;
+    --dourado: #a9895d;
+
+    --serif: "Cormorant Garamond", serif;
+    --titulo: "Bodoni Moda", serif;
+    --script: "Allura", cursive;
+    --sans: "Montserrat", sans-serif;
+}
+
+
+/* ========================================
+   BASE
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    min-height: 100%;
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 255, 255, .55),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(156, 98, 82, .08),
+            transparent 30%
+        ),
+        var(--areia);
+
+    color: var(--tinta);
+
+    font-family: var(--serif);
+
+    overflow-x: hidden;
+}
+
+
+/* ========================================
+   DECORAÇÕES
+======================================== */
+
+.decor {
+
+    position: fixed;
+
+    z-index: 1;
+
+    color: var(--terracota);
+
+    opacity: .45;
+
+    pointer-events: none;
+
+    font-size: 24px;
+}
+
+
+.decor-1 {
+    top: 8%;
+    left: 8%;
+}
+
+
+.decor-2 {
+    top: 18%;
+    right: 10%;
+}
+
+
+.decor-3 {
+    bottom: 18%;
+    left: 12%;
+}
+
+
+.decor-4 {
+    bottom: 8%;
+    right: 9%;
+}
+
+
+/* ========================================
+   CONTEÚDO
+======================================== */
+
+.cupons {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(900px, 92%);
+
+    margin: 0 auto;
+
+    padding: 55px 20px 50px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   POLAROIDS
+======================================== */
+
+.polaroids-area {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 390px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+.polaroid {
+
+    position: absolute;
+
+    width: 190px;
+
+    padding: 10px 10px 30px;
+
+    background: #fffdf8;
+
+    border: 1px solid rgba(70, 52, 40, .08);
+
+    box-shadow:
+        0 12px 25px rgba(70, 52, 40, .18),
+        0 3px 7px rgba(70, 52, 40, .10);
+
+    opacity: 0;
+
+    transform:
+        translate(0, 25px)
+        rotate(0deg)
+        scale(.82);
+
+    animation:
+        abrirPolaroid 1s ease forwards;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+
+/*
+   Todas as fotos possuem exatamente
+   o mesmo espaço.
+
+   object-fit: cover faz a imagem
+   preencher completamente o quadro,
+   mesmo que cada JPG tenha um formato
+   diferente.
+*/
+
+.polaroid img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 170px;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    background: #eee7dc;
+}
+
+
+/* ========================================
+   ANIMAÇÃO DOS POLAROIDS
+======================================== */
+
+.polaroid-1 {
+
+    animation-delay: .25s;
+
+    --rotacao: -13deg;
+
+    --x: -210px;
+
+    --y: 15px;
+}
+
+
+.polaroid-2 {
+
+    animation-delay: .45s;
+
+    --rotacao: -7deg;
+
+    --x: -105px;
+
+    --y: -25px;
+}
+
+
+.polaroid-3 {
+
+    animation-delay: .65s;
+
+    --rotacao: 0deg;
+
+    --x: 0px;
+
+    --y: 10px;
+}
+
+
+.polaroid-4 {
+
+    animation-delay: .85s;
+
+    --rotacao: 7deg;
+
+    --x: 105px;
+
+    --y: -25px;
+}
+
+
+.polaroid-5 {
+
+    animation-delay: 1.05s;
+
+    --rotacao: 13deg;
+
+    --x: 210px;
+
+    --y: 15px;
+}
+
+
+@keyframes abrirPolaroid {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate(0, 25px)
+            rotate(0deg)
+            scale(.82);
+    }
+
+    60% {
+
+        opacity: 1;
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translate(var(--x), var(--y))
+            rotate(var(--rotacao))
+            scale(1);
+    }
+}
+
+
+/* ========================================
+   HOVER DAS FOTOS
+======================================== */
+
+.polaroid:hover {
+
+    z-index: 20;
+
+    transform:
+        translate(var(--x), calc(var(--y) - 8px))
+        rotate(0deg)
+        scale(1.06);
+
+    box-shadow:
+        0 20px 35px rgba(70, 52, 40, .25);
+}
+
+
+/* ========================================
+   TÍTULOS
+======================================== */
+
+.mini-titulo {
+
+    margin: 0 0 8px;
+
+    font-family: var(--sans);
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: var(--marrom-claro);
+}
+
+
+h1 {
+
+    margin: 0;
+
+    font-family: var(--titulo);
+
+    font-size: clamp(38px, 7vw, 70px);
+
+    font-weight: 400;
+
+    letter-spacing: -1px;
+
+    line-height: 1;
+
+    color: var(--tinta);
+}
+
+
+.subtitulo {
+
+    max-width: 450px;
+
+    margin: 18px auto 35px;
+
+    font-size: 18px;
+
+    line-height: 1.5;
+
+    color: var(--tinta-suave);
+}
+
+
+/* ========================================
+   IMAGEM DOS CUPONS
+======================================== */
+
+.imagem-cupons {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 12px;
+
+    background: rgba(247, 241, 232, .8);
+
+    border: 1px solid rgba(154, 128, 109, .3);
+
+    box-shadow:
+        0 18px 45px rgba(70, 52, 40, .14),
+        0 3px 10px rgba(70, 52, 40, .08);
+
+    transform: rotate(-.4deg);
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+}
+
+
+.imagem-cupons:hover {
+
+    transform:
+        rotate(0deg)
+        translateY(-3px);
+
+    box-shadow:
+        0 22px 55px rgba(70, 52, 40, .18);
+}
+
+
+.imagem-cupons img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    border: 1px solid rgba(154, 128, 109, .18);
+}
+
+
+/* ========================================
+   BOTÃO VOLTAR
+======================================== */
+
+.voltar {
+
+    display: inline-block;
+
+    margin-top: 35px;
+
+    padding: 11px 20px;
+
+    border: 1px solid rgba(154, 128, 109, .45);
+
+    color: var(--tinta);
+
+    background: rgba(247, 241, 232, .55);
+
+    font-family: var(--sans);
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    text-decoration: none;
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        border-color .3s ease;
+}
+
+
+.voltar:hover {
+
+    background: rgba(255, 255, 255, .65);
+
+    border-color: var(--terracota);
+
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   CORAÇÕES
+======================================== */
+
+.coracao {
+
+    position: fixed;
+
+    z-index: 1;
+
+    color: var(--terracota);
+
+    opacity: .25;
+
+    pointer-events: none;
+
+    font-family: var(--serif);
+
+    font-size: 40px;
+
+    animation: flutuar 5s ease-in-out infinite;
+}
+
+
+.coracao-1 {
+
+    top: 35%;
+
+    left: 3%;
+
+    animation-delay: 0s;
+}
+
+
+.coracao-2 {
+
+    top: 65%;
+
+    right: 4%;
+
+    font-size: 28px;
+
+    animation-delay: 1.5s;
+}
+
+
+.coracao-3 {
+
+    bottom: 5%;
+
+    left: 45%;
+
+    font-size: 22px;
+
+    animation-delay: 3s;
+}
+
+
+@keyframes flutuar {
+
+    0%,
+    100% {
+
+        transform: translateY(0);
+    }
+
+    50% {
+
+        transform: translateY(-8px);
+    }
+}
+
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media (max-width: 700px) {
+
+    .cupons {
+
+        width: 94%;
+
+        padding:
+            35px 5px
+            35px;
+    }
+
+
+    .polaroids-area {
+
+        height: 360px;
+
+        margin-bottom: 0;
+    }
+
+
+    .polaroid {
+
+        width: 125px;
+
+        padding:
+            7px
+            7px
+            22px;
+    }
+
+
+    .polaroid img {
+
+        height: 110px;
+    }
+
+
+    .polaroid-1 {
+
+        --x: -125px;
+
+        --y: 55px;
+
+        --rotacao: -13deg;
+    }
+
+
+    .polaroid-2 {
+
+        --x: -62px;
+
+        --y: 5px;
+
+        --rotacao: -7deg;
+    }
+
+
+    .polaroid-3 {
+
+        --x: 0px;
+
+        --y: -25px;
+
+        --rotacao: 0deg;
+    }
+
+
+    .polaroid-4 {
+
+        --x: 62px;
+
+        --y: 5px;
+
+        --rotacao: 7deg;
+    }
+
+
+    .polaroid-5 {
+
+        --x: 125px;
+
+        --y: 55px;
+
+        --rotacao: 13deg;
+    }
+
+
+    .mini-titulo {
+
+        font-size: 8px;
+
+        letter-spacing: 3px;
+    }
+
+
+    h1 {
+
+        font-size: 43px;
+    }
+
+
+    .subtitulo {
+
+        margin-top: 14px;
+
+        margin-bottom: 25px;
+
+        font-size: 16px;
+
+        padding: 0 10px;
+    }
+
+
+    .imagem-cupons {
+
+        padding: 7px;
+
+        transform: rotate(0deg);
+    }
+
+
+    .imagem-cupons:hover {
+
+        transform: none;
+    }
+
+
+    .voltar {
+
+        margin-top: 25px;
+
+        font-size: 9px;
+    }
+
+
+    .decor {
+
+        font-size: 18px;
+    }
+
+
+    .coracao {
+
+        font-size: 28px;
+    }
+
+}
+
+
+/* ========================================
+   CELULARES MUITO PEQUENOS
+======================================== */
+
+@media (max-width: 390px) {
+
+    .polaroids-area {
+
+        height: 335px;
+    }
+
+
+    .polaroid {
+
+        width: 105px;
+
+        padding:
+            6px
+            6px
+            19px;
+    }
+
+
+    .polaroid img {
+
+        height: 90px;
+    }
+
+
+    .polaroid-1 {
+
+        --x: -92px;
+
+        --y: 48px;
+    }
+
+
+    .polaroid-2 {
+
+        --x: -46px;
+
+        --y: 3px;
+    }
+
+
+    .polaroid-3 {
+
+        --x: 0px;
+
+        --y: -22px;
+    }
+
+
+    .polaroid-4 {
+
+        --x: 46px;
+
+        --y: 3px;
+    }
+
+
+    .polaroid-5 {
+
+        --x: 92px;
+
+        --y: 48px;
+    }
+
+}
