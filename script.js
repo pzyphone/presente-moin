@@ -17,34 +17,55 @@ const VELOCIDADE = 46;
 // CARTA
 // ========================================
 
-const envelope = document.getElementById("envelope");
-const dicaClique = document.getElementById("dicaClique");
+const envelope =
+    document.getElementById("envelope");
 
-const cartaModal = document.getElementById("cartaModal");
-const cartaFundo = document.getElementById("cartaFundo");
-const fecharCarta = document.getElementById("fecharCarta");
+const dicaClique =
+    document.getElementById("dicaClique");
+
+const cartaModal =
+    document.getElementById("cartaModal");
+
+const cartaFundo =
+    document.getElementById("cartaFundo");
+
+const fecharCarta =
+    document.getElementById("fecharCarta");
 
 let cartaAberta = false;
 
 
-// Cria as pequenas estrelas que aparecem
-// quando a carta é aberta
+// ========================================
+// CRIA AS FAÍSCAS
+// ========================================
+
 function criarFaiscas() {
 
     if (!envelope) {
         return;
     }
 
-    const simbolos = ["✦", "✧", "♡", "⋆"];
+    const simbolos = [
+        "✦",
+        "✧",
+        "♡",
+        "⋆"
+    ];
 
     for (let i = 0; i < 14; i++) {
 
-        const faisca = document.createElement("span");
+        const faisca =
+            document.createElement("span");
 
         faisca.className = "faisca";
 
         faisca.textContent =
-            simbolos[Math.floor(Math.random() * simbolos.length)];
+            simbolos[
+                Math.floor(
+                    Math.random() *
+                    simbolos.length
+                )
+            ];
 
         faisca.style.setProperty(
             "--dx",
@@ -59,13 +80,18 @@ function criarFaiscas() {
         envelope.appendChild(faisca);
 
         setTimeout(() => {
+
             faisca.remove();
+
         }, 1300);
     }
 }
 
 
-// Abre a carta
+// ========================================
+// ABRIR CARTA
+// ========================================
+
 function abrirCarta() {
 
     if (!envelope || cartaAberta) {
@@ -76,113 +102,181 @@ function abrirCarta() {
 
     envelope.classList.add("aberto");
 
+
     if (dicaClique) {
+
         dicaClique.style.opacity = "0";
+
     }
 
+
     criarFaiscas();
+
 
     setTimeout(() => {
 
         if (cartaModal) {
-            cartaModal.classList.add("visivel");
+
+            // IMPORTANTE:
+            // O CSS usa a classe "ativa"
+            cartaModal.classList.add("ativa");
+
         }
 
-        document.body.style.overflow = "hidden";
+
+        document.body.style.overflow =
+            "hidden";
 
     }, 750);
 }
 
 
-// Fecha a carta
+// ========================================
+// FECHAR CARTA
+// ========================================
+
 function fecharCartaModal() {
 
     if (!cartaModal) {
         return;
     }
 
-    cartaModal.classList.remove("visivel");
+
+    cartaModal.classList.remove(
+        "ativa"
+    );
+
 
     setTimeout(() => {
 
         if (envelope) {
-            envelope.classList.remove("aberto");
+
+            envelope.classList.remove(
+                "aberto"
+            );
+
         }
 
+
         if (dicaClique) {
-            dicaClique.style.opacity = "";
+
+            dicaClique.style.opacity =
+                "";
+
         }
+
 
         cartaAberta = false;
 
-        document.body.style.overflow = "";
+        document.body.style.overflow =
+            "";
 
     }, 420);
 }
 
 
-// Clique no envelope
+// ========================================
+// CLIQUE NO ENVELOPE
+// ========================================
+
 if (envelope) {
 
-    envelope.addEventListener("click", abrirCarta);
-
-    envelope.addEventListener("keydown", (event) => {
-
-        if (
-            event.key === "Enter" ||
-            event.key === " "
-        ) {
-
-            event.preventDefault();
-
-            abrirCarta();
-        }
-    });
-}
-
-
-// Botão de fechar
-if (fecharCarta) {
-    fecharCarta.addEventListener(
+    envelope.addEventListener(
         "click",
-        fecharCartaModal
+        abrirCarta
+    );
+
+
+    envelope.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                abrirCarta();
+
+            }
+
+        }
     );
 }
 
 
-// Clique no fundo da carta
+// ========================================
+// BOTÃO DE FECHAR
+// ========================================
+
+if (fecharCarta) {
+
+    fecharCarta.addEventListener(
+        "click",
+        fecharCartaModal
+    );
+
+}
+
+
+// ========================================
+// CLIQUE NO FUNDO
+// ========================================
+
 if (cartaFundo) {
 
     cartaFundo.addEventListener(
         "click",
         fecharCartaModal
     );
+
 }
 
 
-// Tecla ESC fecha a carta
-document.addEventListener("keydown", (event) => {
+// ========================================
+// ESC FECHA A CARTA
+// ========================================
 
-    if (
-        event.key === "Escape" &&
-        cartaAberta
-    ) {
+document.addEventListener(
+    "keydown",
+    (event) => {
 
-        fecharCartaModal();
+        if (
+            event.key === "Escape" &&
+            cartaAberta
+        ) {
+
+            fecharCartaModal();
+
+        }
+
     }
-});
+);
 
 
-// Evita que clicar dentro da carta
-// feche o modal
+// ========================================
+// EVITA FECHAR AO CLICAR DENTRO
+// ========================================
+
 if (cartaModal) {
 
-    cartaModal.addEventListener("click", (event) => {
+    cartaModal.addEventListener(
+        "click",
+        (event) => {
 
-        if (event.target === cartaModal) {
-            fecharCartaModal();
+            if (
+                event.target === cartaModal
+            ) {
+
+                fecharCartaModal();
+
+            }
+
         }
-    });
+    );
+
 }
 
 
@@ -190,114 +284,179 @@ if (cartaModal) {
 // FILME DE FOTOS
 // ========================================
 
-const filmeTrilha = document.getElementById("filmeTrilha");
-const filmeRolo = document.getElementById("filmeRolo");
+const filmeTrilha =
+    document.getElementById(
+        "filmeTrilha"
+    );
+
+const filmeRolo =
+    document.getElementById(
+        "filmeRolo"
+    );
 
 
-// Cria cada foto do filme
+// ========================================
+// CRIA UMA FOTO
+// ========================================
+
 function criarFoto(
     caminho,
     indice,
     decorativa = false
 ) {
 
-    const foto = document.createElement("div");
+    const foto =
+        document.createElement("div");
 
     foto.className = "foto";
 
+
     if (decorativa) {
-        foto.setAttribute("aria-hidden", "true");
+
+        foto.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
     }
+
 
     const fotoInterna =
         document.createElement("div");
 
-    fotoInterna.className = "foto-interna";
+    fotoInterna.className =
+        "foto-interna";
+
 
     const imagem =
         document.createElement("img");
 
     imagem.src = caminho;
 
+
     imagem.alt =
         decorativa
             ? ""
             : `Foto ${indice + 1}`;
 
+
     imagem.loading = "lazy";
+
 
     const numero =
         document.createElement("span");
 
-    numero.className = "numero-foto";
+    numero.className =
+        "numero-foto";
+
 
     numero.textContent =
-        String(indice + 1).padStart(2, "0");
+        String(indice + 1)
+            .padStart(2, "0");
 
-    fotoInterna.appendChild(imagem);
-    fotoInterna.appendChild(numero);
 
-    foto.appendChild(fotoInterna);
+    fotoInterna.appendChild(
+        imagem
+    );
+
+    fotoInterna.appendChild(
+        numero
+    );
+
+    foto.appendChild(
+        fotoInterna
+    );
+
 
     return foto;
 }
 
 
-// Monta o filme de fotos
+// ========================================
+// MONTA O FILME
+// ========================================
+
 function montarFilme() {
 
-    if (!filmeRolo || !filmeTrilha) {
+    if (
+        !filmeRolo ||
+        !filmeTrilha
+    ) {
+
         return 0;
+
     }
+
 
     filmeRolo.innerHTML = "";
 
-    // Primeiro conjunto de fotos
-    FOTOS.forEach((foto, indice) => {
 
-        filmeRolo.appendChild(
-            criarFoto(
-                foto,
-                indice,
-                false
-            )
-        );
-    });
+    // Primeiro conjunto
+    FOTOS.forEach(
+        (foto, indice) => {
+
+            filmeRolo.appendChild(
+                criarFoto(
+                    foto,
+                    indice,
+                    false
+                )
+            );
+
+        }
+    );
 
 
-    // Calcula o tamanho do primeiro conjunto
     const primeiraFoto =
-        filmeRolo.querySelector(".foto");
+        filmeRolo.querySelector(
+            ".foto"
+        );
+
 
     if (!primeiraFoto) {
         return 0;
     }
 
+
     const larguraFoto =
-        primeiraFoto.getBoundingClientRect().width;
+        primeiraFoto.getBoundingClientRect()
+            .width;
+
 
     const estilos =
-        window.getComputedStyle(filmeRolo);
+        window.getComputedStyle(
+            filmeRolo
+        );
+
 
     const gap =
-        parseFloat(estilos.gap) || 0;
+        parseFloat(
+            estilos.gap
+        ) || 0;
+
 
     const deslocamento =
-        (larguraFoto + gap) * FOTOS.length;
+        (
+            larguraFoto + gap
+        ) *
+        FOTOS.length;
 
 
-    // Duplica as fotos para criar
-    // o efeito de movimento contínuo
-    FOTOS.forEach((foto, indice) => {
+    // Segundo conjunto
+    // para criar o movimento contínuo
+    FOTOS.forEach(
+        (foto, indice) => {
 
-        filmeRolo.appendChild(
-            criarFoto(
-                foto,
-                indice,
-                true
-            )
-        );
-    });
+            filmeRolo.appendChild(
+                criarFoto(
+                    foto,
+                    indice,
+                    true
+                )
+            );
+
+        }
+    );
 
 
     filmeRolo.style.setProperty(
@@ -307,7 +466,9 @@ function montarFilme() {
 
 
     const duracao =
-        deslocamento / VELOCIDADE;
+        deslocamento /
+        VELOCIDADE;
+
 
     filmeRolo.style.setProperty(
         "--filme-duracao",
@@ -319,8 +480,12 @@ function montarFilme() {
 }
 
 
-// Monta o filme pela primeira vez
-let intervaloFoto = montarFilme();
+// ========================================
+// MONTA O FILME PELA PRIMEIRA VEZ
+// ========================================
+
+let intervaloFoto =
+    montarFilme();
 
 
 // ========================================
@@ -328,23 +493,37 @@ let intervaloFoto = montarFilme();
 // ========================================
 
 const camera =
-    document.getElementById("camera");
+    document.getElementById(
+        "camera"
+    );
 
 const haloFlash =
-    document.getElementById("haloFlash");
+    document.getElementById(
+        "haloFlash"
+    );
 
 const flashTela =
-    document.getElementById("flashTela");
+    document.getElementById(
+        "flashTela"
+    );
 
 const memorias =
-    document.getElementById("memorias");
-
-let temporizadorFlash = null;
-
-let secaoVisivel = false;
+    document.getElementById(
+        "memorias"
+    );
 
 
-// Dispara o flash da câmera
+let temporizadorFlash =
+    null;
+
+let secaoVisivel =
+    false;
+
+
+// ========================================
+// DISPARAR FLASH
+// ========================================
+
 function dispararFlash() {
 
     if (!camera) {
@@ -352,58 +531,86 @@ function dispararFlash() {
     }
 
 
-    // Animação da câmera
-    camera.classList.remove("disparando");
+    camera.classList.remove(
+        "disparando"
+    );
+
 
     void camera.offsetWidth;
 
-    camera.classList.add("disparando");
+
+    camera.classList.add(
+        "disparando"
+    );
 
 
-    // Animação do halo
+    // Halo da câmera
     if (haloFlash) {
 
-        haloFlash.classList.remove("ativo");
+        haloFlash.classList.remove(
+            "ativo"
+        );
 
         void haloFlash.offsetWidth;
 
-        haloFlash.classList.add("ativo");
+        haloFlash.classList.add(
+            "ativo"
+        );
+
     }
 
 
-    // Flash na tela
+    // Flash da tela
     if (flashTela) {
 
-        flashTela.classList.remove("ativo");
+        flashTela.classList.remove(
+            "ativo"
+        );
 
         void flashTela.offsetWidth;
 
-        flashTela.classList.add("ativo");
+        flashTela.classList.add(
+            "ativo"
+        );
+
     }
 
 
-    // Remove a animação da câmera
     setTimeout(() => {
 
-        camera.classList.remove("disparando");
+        camera.classList.remove(
+            "disparando"
+        );
 
     }, 180);
 }
 
 
-// Reinicia o intervalo do flash
+// ========================================
+// REINICIAR FLASH
+// ========================================
+
 function reiniciarFlash() {
 
     if (temporizadorFlash) {
 
-        clearInterval(temporizadorFlash);
+        clearInterval(
+            temporizadorFlash
+        );
 
-        temporizadorFlash = null;
+        temporizadorFlash =
+            null;
+
     }
 
 
-    if (!secaoVisivel || !camera) {
+    if (
+        !secaoVisivel ||
+        !camera
+    ) {
+
         return;
+
     }
 
 
@@ -411,52 +618,71 @@ function reiniciarFlash() {
     setTimeout(() => {
 
         if (secaoVisivel) {
+
             dispararFlash();
+
         }
 
     }, 500);
 
 
-    // Depois continua piscando
-    temporizadorFlash = setInterval(() => {
+    // Flash a cada 5 segundos
+    temporizadorFlash =
+        setInterval(() => {
 
-        if (secaoVisivel) {
-            dispararFlash();
-        }
+            if (secaoVisivel) {
 
-    }, 5000);
+                dispararFlash();
+
+            }
+
+        }, 5000);
 }
 
 
-// Observa quando a seção da câmera
-// aparece na tela
+// ========================================
+// OBSERVA A CÂMERA
+// ========================================
+
 if (memorias) {
 
     const observadorCamera =
         new IntersectionObserver(
             (entradas) => {
 
-                entradas.forEach((entrada) => {
+                entradas.forEach(
+                    (entrada) => {
 
-                    secaoVisivel =
-                        entrada.isIntersecting;
+                        secaoVisivel =
+                            entrada.isIntersecting;
 
-                    if (secaoVisivel) {
 
-                        reiniciarFlash();
+                        if (
+                            secaoVisivel
+                        ) {
 
-                    } else {
+                            reiniciarFlash();
 
-                        if (temporizadorFlash) {
+                        } else {
 
-                            clearInterval(
+                            if (
                                 temporizadorFlash
-                            );
+                            ) {
 
-                            temporizadorFlash = null;
+                                clearInterval(
+                                    temporizadorFlash
+                                );
+
+                                temporizadorFlash =
+                                    null;
+
+                            }
+
                         }
+
                     }
-                });
+                );
+
             },
             {
                 threshold: 0.25
@@ -464,7 +690,9 @@ if (memorias) {
         );
 
 
-    observadorCamera.observe(memorias);
+    observadorCamera.observe(
+        memorias
+    );
 }
 
 
@@ -473,28 +701,40 @@ if (memorias) {
 // ========================================
 
 const elementosRevelar =
-    document.querySelectorAll(".revelar");
+    document.querySelectorAll(
+        ".revelar"
+    );
 
 
-if (elementosRevelar.length > 0) {
+if (
+    elementosRevelar.length > 0
+) {
 
     const observadorRevelar =
         new IntersectionObserver(
             (entradas) => {
 
-                entradas.forEach((entrada) => {
+                entradas.forEach(
+                    (entrada) => {
 
-                    if (entrada.isIntersecting) {
+                        if (
+                            entrada.isIntersecting
+                        ) {
 
-                        entrada.target.classList.add(
-                            "visivel"
-                        );
+                            entrada.target.classList.add(
+                                "visivel"
+                            );
 
-                        observadorRevelar.unobserve(
-                            entrada.target
-                        );
+
+                            observadorRevelar.unobserve(
+                                entrada.target
+                            );
+
+                        }
+
                     }
-                });
+                );
+
             },
             {
                 threshold: 0.15
@@ -502,11 +742,15 @@ if (elementosRevelar.length > 0) {
         );
 
 
-    elementosRevelar.forEach((elemento) => {
+    elementosRevelar.forEach(
+        (elemento) => {
 
-        observadorRevelar.observe(elemento);
+            observadorRevelar.observe(
+                elemento
+            );
 
-    });
+        }
+    );
 }
 
 
@@ -515,7 +759,9 @@ if (elementosRevelar.length > 0) {
 // ========================================
 
 const petalas =
-    document.getElementById("petalas");
+    document.getElementById(
+        "petalas"
+    );
 
 
 function criarPetalas() {
@@ -523,6 +769,7 @@ function criarPetalas() {
     if (!petalas) {
         return;
     }
+
 
     petalas.innerHTML = "";
 
@@ -541,12 +788,21 @@ function criarPetalas() {
     ];
 
 
-    for (let i = 0; i < quantidade; i++) {
+    for (
+        let i = 0;
+        i < quantidade;
+        i++
+    ) {
 
         const petala =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
 
-        petala.className = "petala";
+
+        petala.className =
+            "petala";
+
 
         petala.textContent =
             simbolos[
@@ -577,7 +833,10 @@ function criarPetalas() {
             `${0.2 + Math.random() * 0.5}`;
 
 
-        petalas.appendChild(petala);
+        petalas.appendChild(
+            petala
+        );
+
     }
 }
 
@@ -587,28 +846,35 @@ criarPetalas();
 
 
 // ========================================
-// REDIMENSIONAMENTO DA TELA
+// REDIMENSIONAMENTO
 // ========================================
 
-let timeoutResize = null;
+let timeoutResize =
+    null;
 
 
 window.addEventListener(
     "resize",
     () => {
 
-        clearTimeout(timeoutResize);
+        clearTimeout(
+            timeoutResize
+        );
 
 
-        timeoutResize = setTimeout(() => {
+        timeoutResize =
+            setTimeout(() => {
 
-            intervaloFoto =
-                montarFilme();
+                intervaloFoto =
+                    montarFilme();
 
-            criarPetalas();
 
-            reiniciarFlash();
+                criarPetalas();
 
-        }, 200);
+
+                reiniciarFlash();
+
+            }, 200);
+
     }
 );
